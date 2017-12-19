@@ -41,6 +41,15 @@ npm install
 npm test
 ```
 
+While you may choose any language to solve this problem that can be run within the
+javascript world (e.g. TypeScript), our one requirement is that your solution can
+still be run with:
+
+```
+npm install
+npm test
+```
+
 Endpoints
 =========
 
@@ -131,7 +140,7 @@ fully fledged applications. Although we've given a relatively simple problem to
 solve, we're looking for you to implement enough code to demonstrate expertise
 with domain modeling and testing.
 
-We're interested in the thought process behind your choices, so please take a
+We're interested in the thought process behind your choices, so please take
 some time to capture that in your README. For example, you can represent your
 library using classes, functions, or objects. We don't consider any one of
 those options better than the others. However, we expect you to make an
