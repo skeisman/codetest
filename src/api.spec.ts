@@ -27,17 +27,17 @@ describe('API', () => {
     });
 
     it('should add a greater than or equal to filter to the url', () => {
-        const url = Api.items().price("gte", 100).url();
+        const url = Api.items().price().greaterThanOrEqualTo(100).url();
         expect(url).toBe('/items?price_gte=100');
     });
 
     it('should add a less than filter to the url', () => {
-        const url = Api.items().price("lt", 1000).url();
+        const url = Api.items().price().lessThan(1000).url();
         expect(url).toBe('/items?price_lt=1000');
     });
 
     it('should do all the things!', () => {
-        const url = Api.items().price("gte", 100).price("lt", 1000).limit(10).offset(20).url();
+        const url = Api.items().price().gte(100).price().lt(1000).limit(10).offset(20).url();
         expect(url).toBe('/items?price_gte=100&price_lt=1000&limit=10&offset=20');
     });
 

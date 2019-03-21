@@ -1,17 +1,10 @@
-My solution makes use of:
-* Method Chaining
-* Typescript types to enforce method inputs
+This solution makes heavy use of method chaining to build urls. The user
+must only interact with the public Api (factory) class. All other classes
+are private and not for direct public consumption.
 
-The main reason I chose this approach is allow maximum code completion and
-prevent incorrect api usage.
+This solution was chosen to allow for maximum code completion and a maximum
+number of compilation errors should the user attempt to incorrectly use the
+API.
 
-Notes
-=====
-
-Only the Api factory class is exported. All other classes are private and
-should never be instantiated by anything other than the factory.
-
-Each endpoint extends ApiUrl to add specific parameters that are only available for that endpoint.
-Code completion will only show the parameters that are available for that specific endpoint.
-This prevents the use of the price parameter on the customer endpoint.
-
+This design avoids the use of string constants. It has one clear
+and simple entry point and it would be hard to use incorrectly.
