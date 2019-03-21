@@ -21,14 +21,17 @@ class Url {
     constructor(private path:string) {
     }
 
-    limit(value:number) {
-        this.tokens.push(`limit=${Math.round(value)}`);
+    protected setToken(token:string) {
+        this.tokens.push(token);
         return this;
     }
 
+    limit(value:number) {
+        return this.setToken(`limit=${Math.round(value)}`);
+    }
+
     offset(value:number) {
-        this.tokens.push(`offset=${Math.round(value)}`);
-        return this;
+        return this.setToken(`offset=${Math.round(value)}`);
     }
 
     url() {
@@ -57,19 +60,12 @@ type Operator = "e" | "gt" | "lt" | "gte" | "lte";
  * @private
  */
 class filter<T> {
-    /**
-     * @param key the base key for the filter parameter
-     * @param parent the parent class instance
-     * @param tokens the parent class url tokens collection. Passing a protected member of a class instance to another class instance is
-     * not normally best practices. The use of a public setter method would normally be the better choice. In this instance
-     * using a public method would expose that setter method to the end user potentially causing more problems than it solved.
-     */
-    constructor(private key:string, private parent:T, private tokens:string[]) {
+
+    constructor(private key:string, private callback:(token:string) => T) {
     }
 
     private operator(value:number, operator:Operator) {
-        this.tokens.push(`${this.key}_${operator}=${value}`);
-        return this.parent;
+        return this.callback(`${this.key}_${operator}=${value}`);
     }
 
     greaterThan(value:number):T {
@@ -122,7 +118,7 @@ class ItemsUrl extends Url {
     }
 
     price():filter<ItemsUrl> {
-        return new filter("price", this, this.tokens);
+        return new filter("price", this.setToken.bind(this));
     }
 }
 
